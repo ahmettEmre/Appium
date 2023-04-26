@@ -33,7 +33,7 @@ public class denemeTesti {
         capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, automation);
         capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, platformIsmi);
         capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, version);
-        capabilities.setCapability(MobileCapabilityType.APP, "C:\\Users\\ahmet\\IdeaProjects\\APPIUM-T108\\Apps\\Calculator_8.4 (503542421)_Apkpure.apk");
+        //capabilities.setCapability(MobileCapabilityType.APP, "C:\\Users\\ahmet\\IdeaProjects\\APPIUM-T108\\Apps\\Calculator_8.4 (503542421)_Apkpure.apk");
 
         driver=new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
