@@ -28,6 +28,9 @@ public class ArabamAppTest {
         capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, version);
         capabilities.setCapability("apppackage","com.dogan.arabam");//hangi uygulama üzerinde calisacagiz
         capabilities.setCapability("appActivity","com.dogan.arabam.presentation.feature.home.HomeActivity");//uygulamada hangi sayfada baslayacagimiz yer
+        capabilities.setCapability(MobileCapabilityType.NO_RESET,false);
+        // eger false kullanirsak uygulama calistiktan sonra yapilacak adimlari gerceklestirir uygulamayi islem bittikten sonra SIFIRLAR
+        // eger true olursa uygulama calistiktan sonra yapilacak adimlari gercceklestirir uygulamayi islem bittikten sonra SIFIRLAMAZ
 
         driver=new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"),capabilities);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
