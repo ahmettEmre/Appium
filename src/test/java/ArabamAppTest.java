@@ -6,6 +6,7 @@ import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -45,10 +46,10 @@ public class ArabamAppTest {
         //driver.findElement(By.xpath("//*[@text='İlan ver']")).click();
 
         driver.findElement(By.xpath("//*[@text='Arabam kaç para?']")).click();
-    // Aracimin fiyatini merak ediyorum bolumunetiklayalim
-    AndroidElement fiyatMerak =driver.findElement(By.xpath("//*[@text='Aracımın fiyatını merak ediyorum']"));
+        // Aracimin fiyatini merak ediyorum bolumunetiklayalim
+        AndroidElement fiyatMerak =driver.findElement(By.xpath("//*[@text='Aracımın fiyatını merak ediyorum']"));
         fiyatMerak.click();
-    // Wolkswagen markasini secelim
+        // Wolkswagen markasini secelim
 
         TouchAction action= new TouchAction<>(driver);
         action.press(PointOption.point(537, 1779))
@@ -60,8 +61,47 @@ public class ArabamAppTest {
         /*
         action.press(PointOption.point(540,287))
                 .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
-                .moveTo(PointOption.point(537, 1779)).release().perform();
+                .moveTo(PointOption.point(537, 1779)).release().perform();390 1370
 
          */
+        driver.findElementByXPath("//*[@text='Volkswagen']").click();
+        driver.findElementByXPath("//*[@text='2011']").click();
+        driver.findElementByXPath("//*[@text='Passat']").click();
+        driver.findElementByXPath("//*[@text='Sedan']").click();
+        driver.findElementByXPath("//*[@text='Benzin']").click();
+        driver.findElementByXPath("//*[@text='Yarı Otomatik']").click();
+
+        Thread.sleep(1000);
+
+        action.press(PointOption.point(453,1738)).release().perform();
+        Thread.sleep(2000);
+        if (driver.isKeyboardShown()){
+            driver.getKeyboard().pressKey("190000");
+            Thread.sleep(2000);
+        }else{
+            driver.findElementById("com.dogan.arabam:id/et_km").sendKeys("150000");
+            Thread.sleep(2000);
+        }
+
+        driver.findElementByXPath("//*[@text='Devam']").click();
+        driver.findElementByXPath("//*[@text='Gri (metalik)']").click();
+        driver.findElementById("com.dogan.arabam:id/btnNext").click();
+        AndroidElement kaput = driver.findElementById("com.dogan.arabam:id/iv_B01001");
+        kaput.click();
+        Thread.sleep(1000);
+        driver.findElementByXPath("(//*[@text='Boyalı'])[2]").click();
+        Thread.sleep(2000);
+        driver.findElementByXPath("//*[@text='Devam']").click();
+        Thread.sleep(1000);
+        driver.findElementByAccessibilityId("com.dogan.arabam:id/rbHasNoTramerEntry").click();
+        Thread.sleep(1000);
+        driver.findElementByAccessibilityId("com.dogan.arabam:id/btnNext").click();
+
+        String aracFiyati= driver.findElementByAccessibilityId("com.dogan.arabam:id/tvAveragePrice").getText();
+        String lastPrice= aracFiyati.replaceAll("\\D","");
+        Assert.assertTrue(Integer.parseInt(lastPrice)>500000);
+
+        driver.closeApp();
+
 }
 }
