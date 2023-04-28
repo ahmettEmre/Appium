@@ -1,6 +1,9 @@
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeTest;
@@ -8,6 +11,7 @@ import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class ArabamAppTest {
@@ -37,7 +41,27 @@ public class ArabamAppTest {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
     @Test
-    public void arabamTest(){
-        driver.findElement(By.xpath("//*[@text='İlan ver']")).click();
-    }
+    public void arabamTest() throws InterruptedException {
+        //driver.findElement(By.xpath("//*[@text='İlan ver']")).click();
+
+        driver.findElement(By.xpath("//*[@text='Arabam kaç para?']")).click();
+    // Aracimin fiyatini merak ediyorum bolumunetiklayalim
+    AndroidElement fiyatMerak =driver.findElement(By.xpath("//*[@text='Aracımın fiyatını merak ediyorum']"));
+        fiyatMerak.click();
+    // Wolkswagen markasini secelim
+
+        TouchAction action= new TouchAction<>(driver);
+        action.press(PointOption.point(537, 1779))
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
+                .moveTo(PointOption.point(540,287)).release().perform();
+
+        Thread.sleep(3000);
+
+        /*
+        action.press(PointOption.point(540,287))
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
+                .moveTo(PointOption.point(537, 1779)).release().perform();
+
+         */
+}
 }
